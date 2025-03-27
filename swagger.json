@@ -5,13 +5,23 @@
     "description": "The School Tab API",
     "version": "1.0.0"
   },
-  "host": "",
+  "host": "schooltab.onrender.com",
   "basePath": "/",
   "schemes": [
     "http",
     "https"
   ],
   "paths": {
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/school/students": {
       "get": {
         "description": "",

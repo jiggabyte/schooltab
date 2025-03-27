@@ -5,7 +5,7 @@ const doc = {
     title: 'SchoolTab API',
     description: 'The School Tab API'
   },
-  host: '',
+  host: 'schooltab.onrender.com',
   schemes: [
     "http",
     "https"
