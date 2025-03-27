@@ -28,7 +28,7 @@ router.delete('/delete-student/:stud_id', studentIdValidationRules, validate, st
 router.get('/instructors', instructorController.getAllInstructors);
 
 // GET One
-router.get('/getinstructort/:inst_id', instructorIdValidationRules, validate, instructorController.getInstructor);
+router.get('/get-instructor/:inst_id', instructorIdValidationRules, validate, instructorController.getInstructor);
 
 // POST a Student
 router.post('/add-instructor', instructorValidationRules(), validate, instructorController.addInstructor);
