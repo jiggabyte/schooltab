@@ -13,7 +13,7 @@ const { studentValidationRules, studentUpdateValidationRules, instructorValidati
 router.get('/students', studentController.getAllStudents);
 
 // GET One
-router.get('/get-student/:stud_id', studentIdValidationRules, validate, studentController.getStudent);
+router.get('/get-student/:stud_id', studentIdValidationRules(), validate, studentController.getStudent);
 
 // POST a Student
 router.post('/add-student', studentValidationRules(), validate, studentController.addStudent);
@@ -22,13 +22,13 @@ router.post('/add-student', studentValidationRules(), validate, studentControlle
 router.put('/update-student/:stud_id', studentUpdateValidationRules(), validate, studentController.updateStudent);
 
 // DELETE a Student
-router.delete('/delete-student/:stud_id', studentIdValidationRules, validate, studentController.deleteStudent);
+router.delete('/delete-student/:stud_id', studentIdValidationRules(), validate, studentController.deleteStudent);
 
 // GET All
 router.get('/instructors', instructorController.getAllInstructors);
 
 // GET One
-router.get('/get-instructor/:inst_id', instructorIdValidationRules, validate, instructorController.getInstructor);
+router.get('/get-instructor/:inst_id', instructorIdValidationRules(), validate, instructorController.getInstructor);
 
 // POST a Student
 router.post('/add-instructor', instructorValidationRules(), validate, instructorController.addInstructor);
@@ -37,6 +37,6 @@ router.post('/add-instructor', instructorValidationRules(), validate, instructor
 router.put('/update-instructor/:inst_id', instructorUpdateValidationRules(), validate, instructorController.updateInstructor);
 
 // DELETE a Student
-router.delete('/delete-instructor/:inst_id', instructorIdValidationRules, validate, instructorController.deleteInstructor);
+router.delete('/delete-instructor/:inst_id', instructorIdValidationRules(), validate, instructorController.deleteInstructor);
 
 module.exports = router;
