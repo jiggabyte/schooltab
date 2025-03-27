@@ -24,7 +24,9 @@ const addStudent = async (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         yearOfAdmission: req.body.yearOfAdmission,
-        courseOfStudy: req.body.courseOfStudy
+        courseOfStudy: req.body.courseOfStudy,
+        department: req.body.department,
+        level: req.body.level
     }
     const result = await mongodb.getDb().db().collection('students').insertOne(user);
     console.log(result);
