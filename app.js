@@ -9,16 +9,6 @@ const mongodb = require('./db/connect');
 const port = process.env.PORT || 8080;
 const app = express();
 
-app
-    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-    .use(express.json())
-    .use(express.urlencoded({ extended: true }))
-    .use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        next();
-    })
-    .use('/', require('./routes'));
-
 app.use((req, res, next) => {
     const err = new Error("not found!");
     err.status = 404;
@@ -35,6 +25,18 @@ app.use((err, req, res, next) => {
         }
     });
 });
+
+app
+    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        next();
+    })
+    .use('/', require('./routes'));
+
+
 
 mongodb.initDb((err, mongodb) => {
     if (err) {
