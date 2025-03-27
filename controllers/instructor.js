@@ -11,7 +11,7 @@ const getAllInstructors = async (req, res, next) => {
 };
 
 const getInstructor = async (req, res, next) => {
-    const result = await mongodb.getDb().db().collection('instructors').find({ _id: new ObjectId(req.params.Inst_id) });
+    const result = await mongodb.getDb().db().collection('instructors').find({ _id: new ObjectId(req.params.inst_id) });
     result.toArray().then((data) => {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(data);
@@ -43,7 +43,7 @@ const updateInstructor = async (req, res, next) => {
         lastName: req.body.lastName,
         yearOfEmployment: req.body.yearOfEmployment
     }
-    const result = await mongodb.getDb().db().collection('instructors').updateOne({ _id: new ObjectId(req.params.Inst_id) }, { $set: student });
+    const result = await mongodb.getDb().db().collection('instructors').updateOne({ _id: new ObjectId(req.params.inst_id) }, { $set: student });
     console.log(result);
     if (result.modifiedCount > 0) {
         res.setHeader('Content-Type', 'application/json');
@@ -55,7 +55,7 @@ const updateInstructor = async (req, res, next) => {
 }
 
 const deleteInstructor = async (req, res, next) => {
-    const result = await mongodb.getDb().db().collection('instructors').deleteOne({ _id: new ObjectId(req.params.Inst_id) });
+    const result = await mongodb.getDb().db().collection('instructors').deleteOne({ _id: new ObjectId(req.params.inst_id) });
     if (result.deletedCount > 0) {
         res.setHeader('Content-Type', 'application/json');
         res.status(204).json({ success: "Instructor deleted!" });
