@@ -1,6 +1,6 @@
-const { body, validationResult } = require('express-validator')
+const { body, validationResult } = require('express-validator');
 
-export const studentValidationRules = () => {
+const studentValidationRules = () => {
     return [
         body('firstName', 'First Name is required').notEmpty(),
         body('lastName', 'Last Name is required').notEmpty(),
@@ -10,7 +10,47 @@ export const studentValidationRules = () => {
     ]
 }
 
-export const validate = (
+const studentUpdateValidationRules = () => {
+    return [
+        body('firstName', 'First Name is required').notEmpty(),
+        body('lastName', 'Last Name is required').notEmpty(),
+        body('yearOfAdmission', 'Year of Admission is required').notEmpty(),
+        body('courseOfStudy', 'Course of Study is required').notEmpty(),
+    ]
+}
+
+
+const instructorValidationRules = () => {
+    return [
+        body('firstName', 'First Name is required').notEmpty(),
+        body('lastName', 'Last Name is required').notEmpty(),
+        body('email', 'Email is required').isEmail(),
+        body('yearOfEmployment', 'Year of Employment is required').notEmpty(),
+        body('coursesTaught', 'Courses Taught is required').notEmpty(),
+    ]
+}
+
+const instructorUpdateValidationRules = () => {
+    return [
+        body('firstName', 'First Name is required').notEmpty(),
+        body('lastName', 'Last Name is required').notEmpty(),
+        body('yearOfEmployment', 'Year of Employment is required').notEmpty()
+    ]
+}
+
+const studentIdValidationRules = () => {
+    return [
+        param('stud_id', 'stud_id is required').notEmpty()
+    ]
+}
+
+const instructorIdValidationRules = () => {
+    return [
+        param('inst_id', 'inst_id is required').notEmpty()
+    ]
+}
+
+const validate = (
     req,
     res,
     next
@@ -29,3 +69,5 @@ export const validate = (
         errors: extractedErrors,
     })
 }
+
+module.exports = { studentValidationRules, studentUpdateValidationRules, instructorValidationRules, instructorUpdateValidationRules, studentIdValidationRules, instructorIdValidationRules, validate };

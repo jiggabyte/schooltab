@@ -5,7 +5,7 @@ GET http://localhost:3000/school/students HTTP/1.1
 
 
 ### GET User by ID
-GET http://localhost:3000/school/get-student/67cf13a2ae2372e2fac6393d
+GET http://localhost:3000/school/get-student/67e58d2437d77a20a4b016f1 HTTP/1.1
 
 
 ### ADD User
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 
 ### UPDATE User
-PUT http://localhost:3000/school/update-student/67dfe6badd585175f7f3820c HTTP/1.1
+PUT http://localhost:3000/school/update-student/67e58d2437d77a20a4b016f1 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -34,5 +34,5 @@ Content-Type: application/json
 
 
 ### DELETE User
-DELETE http://localhost:3000/student/delete-stuent/67dfe68f95a5c6baab69b0ea HTTP/1.1
+DELETE http://localhost:3000/school/delete-student/67e58e6737d77a20a4b016f4 HTTP/1.1
  
