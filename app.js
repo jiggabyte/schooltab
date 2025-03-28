@@ -9,22 +9,7 @@ const mongodb = require('./db/connect');
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use((req, res, next) => {
-    const err = new Error("not found!");
-    err.status = 404;
-    next(err);
-}
-);
 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message
-        }
-    });
-});
 
 app
     .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
@@ -36,6 +21,24 @@ app
     })
     .use('/', require('./routes'));
 
+/*
+app.use((req, res, next) => {
+    const err = new Error("not found!");
+    err.status = 404;
+    next(err);
+}
+);
+*/
+
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({
+        error: {
+            status: err.status || 500,
+            message: err.message
+        }
+    });
+});
 
 
 mongodb.initDb((err, mongodb) => {
