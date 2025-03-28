@@ -39,4 +39,14 @@ router.put('/update-instructor/:inst_id', instructorUpdateValidationRules(), val
 // DELETE a Student
 router.delete('/delete-instructor/:inst_id', instructorIdValidationRules(), validate, instructorController.deleteInstructor);
 
+// Error route
+router.get('/instructor-error', instructorController.getError);
+
+// File Not Found Route - must be last route in list
+router.use((req, res, next) => {
+    const err = new Error("not found!");
+    err.status = 404;
+    next(err);
+});
+
 module.exports = router;

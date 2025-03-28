@@ -66,4 +66,8 @@ const deleteInstructor = async (req, res, next) => {
 
 }
 
-module.exports = { getAllInstructors, getInstructor, addInstructor, updateInstructor, deleteInstructor };
+const getError = (req, res, next) => {
+    throw new Error("Server Error!");
+}
+
+module.exports = { getAllInstructors, getInstructor, addInstructor, updateInstructor, deleteInstructor, getError };
