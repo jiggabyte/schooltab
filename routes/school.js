@@ -42,7 +42,7 @@ router.delete('/delete-instructor/:inst_id', instructorIdValidationRules(), vali
 // Error route
 router.get('/instructor-error', instructorController.getError);
 
-// File Not Found Route - must be last route in list
+// File Not Found Route - must be last route in list 
 router.use((req, res, next) => {
     const err = new Error("not found!");
     err.status = 404;
