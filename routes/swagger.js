@@ -10,7 +10,7 @@ const options = {
         clientSecret: process.env.CLIENT_SECRET,
         realm: "",
         appName: "SchoolTab",
-        redirectUrl: "./",
+        redirectUrl: "https://schooltab.onrender.com/auth/google/callback",
         scopeSeparator: " ",
         scopes: "email profile",
         useBasicAuthenticationWithAccessCodeGrant: true,
