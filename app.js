@@ -39,6 +39,7 @@ passport.use(
             callbackURL: process.env.CALLBACK_URL,
         },
         async (accessToken, refreshToken, profile, done) => {
+            console.log('AccessToken: ', accessToken);
             try {
                 const db = mongodb.getDb().db();
                 let user = await db.collection('users').findOne({ googleId: profile.id });
