@@ -1,8 +1,7 @@
 const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 const session = require('express-session');
 const passport = require('passport');
+const cors = require("cors");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
@@ -10,6 +9,8 @@ const mongodb = require('./db/connect');
 
 const port = process.env.PORT || 8080;
 const app = express();
+
+app.use(cors());
 
 // Passport Local Strategy
 passport.use(
@@ -73,7 +74,6 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app
-    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use((req, res, next) => {
@@ -83,6 +83,16 @@ app
     .use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: false }))
     .use(passport.initialize())
     .use(passport.session())
+    .use((req,res,next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers",
+            "Origin, X-Request-With, Content-Type, Accept, Z-Key"
+        );
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, UPDATE, PATCH");
+        next();
+    })
+    .use(cors({methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH", "OPTIONS"]}))
+    .use(cors({origin: "*", credentials: true}))
     .use('/', require('./routes'));
 
 app.use((err, req, res, next) => {
