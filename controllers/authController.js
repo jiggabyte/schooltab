@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const mongodb = require('../db/connect');
 
+
+/*
 const register = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -49,6 +51,10 @@ const login = async (req, res, next) => {
     }
 };
 
+*/
+
+const login = () => passport.authenticate('google', { scope: ['profile', 'email'] });
+
 const logout = (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
@@ -56,30 +62,36 @@ const logout = (req, res) => {
     });
 };
 
-// const googleLogin = passport.authenticate('google', { scope: ['profile', 'email'] });
+
+
 // const googleCallback = passport.authenticate('google', { failureRedirect: '/login' });
 
+/*
 const googleLogout = (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
         res.status(200).json({ message: 'Logged out from Google successfully' });
     });
 };
+*/
 
+/*
 const protectedRoute = (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).json({ error: 'Unauthorized. Please log in.' });
     }
     res.status(200).json({ data: 'This is protected data only accessible to logged-in users.' });
 };
+*/
+
 
 
 module.exports = {
-    register,
+    // register,
     login,
     logout,
     // googleLogin,
     // googleCallback,
-    googleLogout,
-    protectedRoute,
+    // googleLogout,
+    // protectedRoute,
 };
