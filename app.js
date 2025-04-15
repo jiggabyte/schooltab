@@ -10,8 +10,6 @@ const mongodb = require('./db/connect');
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use(cors());
-
 // Passport Local Strategy
 passport.use(
     new LocalStrategy(async (username, password, done) => {
