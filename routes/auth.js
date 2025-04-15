@@ -5,12 +5,17 @@ const passport = require('passport');
 
 // router.post('/register', authController.register);
 
-router.post('/login', authController.login);
-router.get('/logout', authController.logout);
+router.get('/login', passport.authenticate('google'), (req, res) => { });
+
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) return res.status(500).json({ error: 'Logout failed' });
+        res.redirect('/auth/google'); 
+    });
+});
 
 router.get('/google', (req, res) => {
     res.send(req.session.user !== undefined ? "LoggedIn as " + req.session.user : "Not logged in");
-
 });
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {

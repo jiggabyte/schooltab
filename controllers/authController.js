@@ -53,8 +53,9 @@ const login = async (req, res, next) => {
 
 */
 
-const login = () => passport.authenticate('google', { scope: ['profile', 'email'] });
+// const login = () => passport.authenticate('google', { scope: ['profile', 'email'] });
 
+/*
 const logout = (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
@@ -62,6 +63,7 @@ const logout = (req, res) => {
         // res.status(200).json({ message: 'Logged out successfully' });
     });
 };
+*/
 
 
 
@@ -89,8 +91,8 @@ const protectedRoute = (req, res) => {
 
 module.exports = {
     // register,
-    login,
-    logout,
+   // login,
+    // logout,
     // googleLogin,
     // googleCallback,
     // googleLogout,

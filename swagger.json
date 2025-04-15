@@ -12,12 +12,6 @@
     "https"
   ],
   "securityDefinitions": {
-    "sessionAuth": {
-      "type": "apiKey",
-      "in": "cookie",
-      "name": "connect.sid",
-      "description": "Session cookie for authentication"
-    },
     "googleOAuth": {
       "type": "oauth2",
       "description": "Google OAuth 2.0 authentication",
@@ -428,7 +422,7 @@
       }
     },
     "/auth/login": {
-      "post": {
+      "get": {
         "description": "",
         "responses": {
           "default": {
@@ -470,7 +464,6 @@
   },
   "security": [
     {
-      "sessionAuth": [],
       "googleOAuth": [
         "email",
         "profile"
