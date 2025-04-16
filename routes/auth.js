@@ -5,22 +5,22 @@ const passport = require('passport');
 
 // router.post('/register', authController.register);
 
-router.get('/login', passport.authenticate('google'), (req, res) => { });
+router.get('/login', passport.authenticate('github'), (req, res) => { });
 
 router.get('/logout', (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
-        res.redirect('/auth/google'); 
+        res.redirect('/auth'); 
     });
 });
 
-router.get('/google', (req, res) => {
+router.get('/', (req, res) => {
     res.send(req.session.user !== undefined ? "LoggedIn as " + req.session.user : "Not logged in");
 });
 
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+router.get('/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
     req.session.user = req.user;
-    res.redirect('/auth/google'); // Redirect to a page after logout
+    res.redirect('/auth'); // Redirect to a page after logout
     //res.status(200).json({ message: 'Logged in with Google successfully' });
 });
 

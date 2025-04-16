@@ -2,8 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require("cors");
-const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GithubStrategy = require('passport-github2').Strategy;
 const bcrypt = require('bcrypt');
 const mongodb = require('./db/connect');
 
@@ -34,17 +34,18 @@ app
     .use(cors({ origin: "*", credentials: true }))
     .use('/', require('./routes'));
 
-// Passport Google OAuth Strategy
+// Passport Github OAuth Strategy
 passport.use(
-    new GoogleStrategy(
+    new GithubStrategy(
         {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
         },
-        async (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, done) => {
             console.log('AccessToken: ', accessToken);
             try {
+                /*
                 const db = mongodb.getDb().db();
                 let user = await db.collection('users').findOne({ googleId: profile.id });
 
@@ -55,7 +56,7 @@ passport.use(
                         email: profile.emails[0].value,
                     });
                 }
-
+                */
                 return done(null, user);
             } catch (err) {
                 return done(err, null);
