@@ -5,6 +5,7 @@
     "description": "The School Tab API with Authentication",
     "version": "1.0.0"
   },
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http",
