@@ -15,7 +15,9 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.send(req.session.user !== undefined ? "LoggedIn as " + req.session.user : "Not logged in");
+    console.log("Session: ", req.session);
+    console.log("User: ", req.user);
+    res.send(req.session.user !== undefined ? "LoggedIn as " + req.session.user.username : "Not logged in");
 });
 
 router.get('/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {

@@ -42,7 +42,7 @@ passport.use(
             clientSecret: process.env.CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
         },
-        async (accessToken, refreshToken, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             console.log('AccessToken: ', accessToken);
             try {
                 /*
@@ -57,7 +57,7 @@ passport.use(
                     });
                 }
                 */
-                return done(null, user);
+                return done(null, profile);
             } catch (err) {
                 return done(err, null);
             }
@@ -66,17 +66,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-    done(null, user._id || user.insertedId);
+    done(null, user);
 });
 
-passport.deserializeUser(async (id, done) => {
-    try {
-        const db = mongodb.getDb().db();
-        const user = await db.collection('users').findOne({ _id: new mongodb.ObjectId(id) });
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
 app.use((err, req, res, next) => {
