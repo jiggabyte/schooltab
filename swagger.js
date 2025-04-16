@@ -5,8 +5,7 @@ const doc = {
     title: 'SchoolTab API',
     description: 'The School Tab API with Authentication'
   },
-  host: 'schooltab.onrender.com',
-  //host: 'localhost:3000',
+  host: process.env.HOST,
   schemes: ['http', 'https'],
   securityDefinitions: {
     googleOAuth: {
@@ -22,7 +21,7 @@ const doc = {
     }
   },
   security: [{
-     googleOAuth: [
+    googleOAuth: [
       "email",
       "profile"
     ]

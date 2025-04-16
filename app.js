@@ -10,23 +10,29 @@ const mongodb = require('./db/connect');
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Passport Local Strategy
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-        try {
-            const db = mongodb.getDb().db();
-            const user = await db.collection('users').findOne({ username });
-            if (!user) return done(null, false, { message: 'User not found' });
 
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) return done(null, false, { message: 'Incorrect password' });
 
-            return done(null, user);
-        } catch (err) {
-            return done(err);
-        }
+app
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        next();
     })
-);
+    .use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }))
+    .use(passport.initialize())
+    .use(passport.session())
+    .use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers",
+            "Origin, X-Request-With, Content-Type, Accept, Z-Key"
+        );
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, UPDATE, PATCH");
+        next();
+    })
+    .use(cors({ methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH", "OPTIONS"] }))
+    .use(cors({ origin: "*", credentials: true }))
+    .use('/', require('./routes'));
 
 // Passport Google OAuth Strategy
 passport.use(
@@ -71,28 +77,6 @@ passport.deserializeUser(async (id, done) => {
         done(err);
     }
 });
-
-app
-    .use(express.json())
-    .use(express.urlencoded({ extended: true }))
-    .use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        next();
-    })
-    .use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: false }))
-    .use(passport.initialize())
-    .use(passport.session())
-    .use((req,res,next) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Headers",
-            "Origin, X-Request-With, Content-Type, Accept, Z-Key"
-        );
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, UPDATE, PATCH");
-        next();
-    })
-    .use(cors({methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH", "OPTIONS"]}))
-    .use(cors({origin: "*", credentials: true}))
-    .use('/', require('./routes'));
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
